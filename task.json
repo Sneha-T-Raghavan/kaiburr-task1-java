@@ -1,0 +1,8 @@
+{
+  "id": "test-123",
+  "name": "MongoDB Atlas Test",
+  "owner": "Sneha",
+  "command": "echo Testing Atlas Connection"
+}
+
+
