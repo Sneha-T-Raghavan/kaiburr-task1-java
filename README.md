@@ -1,4 +1,4 @@
-# kaiburr-task1-java
+# Description
 
 A RESTful API implementation using Spring Boot for managing tasks. It allows you to search, create, delete and execute tasks. This project was made for the Kaiburr assignment task 1.
 

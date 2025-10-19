@@ -13,7 +13,8 @@ import java.util.List;
 
 
 @RestController 
-@RequestMapping("/tasks") // Base URL for all endpoints
+@RequestMapping("/tasks") 
+@CrossOrigin(origins = "http://localhost:3000")
   public class TaskController {
 
     @Autowired
