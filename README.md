@@ -9,7 +9,7 @@ A RESTful API implementation using Spring Boot for managing tasks. It allows you
 3. Search for tasks by ID.
 4. Execute tasks.
 5. Delete tasks by ID.
-6. Exception handling.
+6. Search for Tasks by Name (Partial Match included)
 
 # Tech Stack
 
@@ -26,7 +26,7 @@ A RESTful API implementation using Spring Boot for managing tasks. It allows you
 |---------|-------------------------|--------------------------------------|--------------------------|------------------------|
 | `GET`   | `/tasks`                | Get all tasks                        | -                        | 200 OK                 |
 | `GET`   | `/tasks?id={id}`        | Get task by ID                       | -                        | 200 OK / 404 Not Found |
-| `PUT`   | `/tasks`                | Create a new task                    | `TaskRequest` JSON       | 201 Created            |
+| `PUT`   | `/tasks`                | Create a new task or updates existing task| `TaskRequest` JSON       | 201 Created            |
 | `DELETE`| `/tasks/{id}`           | Delete task by ID                    | -                        | 200 OK / 404 Not Found |
 | `GET`   | `/tasks/search?name=`   | Search tasks by name                 | -                        | 200 OK                 |
 | `PUT`   | `/tasks/{id}/execute`   | Execute a task                       | -                        | 200 OK                 |
@@ -39,6 +39,17 @@ A RESTful API implementation using Spring Boot for managing tasks. It allows you
   "owner": "User1",
   "command": "echo Hello World!"
 }
+
+# Security and Command Validation
+To prevent unsafe or malicious code execution, the `PUT /tasks` endpoint performs strict validation on the `command` field upon task creation. If any of the following patterns are detected, the request will be rejected with a 400 Bad Request error.
+
+  - Commands related to system modification, such as `rm -rf`, `reboot`, `shutdown`, and file system creation (`mkfs`).
+  - Using command chaining operators like `&&`, `||`, or `;`.
+  - Attempts to redirect output to sensitive system paths (e.g., using `> /etc/...` or `> /dev/...`).
+
+Command Validation 
+![Bad Command Stopped](./screenshots/bad_task.png)
+
 
 # How to Setup and Run 
 
@@ -67,6 +78,9 @@ Get All Tasks
 
 Get Task by ID
 ![Get Task by ID](./screenshots/get_tasks_ID.png)
+
+Get Tasks by Name (Partial Match)
+![Get Task by Name](./screenshots/search_name.png)
 
 Deleting a Task
 ![Delete Task](./screenshots/delete_task.png)
