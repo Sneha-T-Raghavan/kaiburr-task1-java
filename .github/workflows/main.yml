@@ -48,7 +48,7 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: .
-        file: ./Dockerfile
+        file: task-java/Dockerfile
         push: true
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/task1-app:latest
